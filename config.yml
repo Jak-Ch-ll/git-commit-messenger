@@ -1,0 +1,16 @@
+variants:
+  - name: CC + Gitmoji
+    pattern: '{type}{scope}: {gitmoji} {text}'
+    parts:
+      - type: ConventionalType
+      - type: TextInput
+        prompt: 'Scope:'
+        pattern: ' ({0})'
+      - type: Literal
+        value: ':'
+      - type: Space
+      - type: Gitmoji
+      - type: Space
+      - type: TextInput
+        prompt: 'Description: '
+
