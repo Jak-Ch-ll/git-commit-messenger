@@ -1,8 +1,10 @@
-use std::{fmt::Display, fs, path::PathBuf};
-
 use home::home_dir;
-
 use serde::Deserialize;
+use std::{fmt::Display, path::PathBuf};
+
+use self::generate::{default_config, read_from_path};
+
+mod generate;
 
 #[derive(Deserialize)]
 pub struct ConfigOptions {
@@ -47,23 +49,6 @@ pub struct SelectOption {
     pub description: Option<String>,
 }
 
-const _TEST_YML: &str = "\
-- type: ConventionalType
-- type: Literal
-  value: ' ('
-- type: Select
-  prompt: 'Scope: '
-  options:
-    - key: fileui5
-    - key: listui5
-- type: Literal
-  value: '): '
-- type: Gitmoji
-- type: Space
-- type: TextInput
-  prompt: 'Description: '
-";
-
 pub struct Config {
     config: ConfigOptions,
 }
@@ -72,10 +57,14 @@ impl Config {
     pub fn new() -> Self {
         let mut config_path = PathBuf::from(home_dir().unwrap());
         config_path.push(".config/gcm/config.yml");
-        let config_yml = fs::read_to_string(config_path).unwrap();
-        let config = serde_yaml::from_str(&config_yml).unwrap();
 
-        Config { config }
+        if let Some(config) = read_from_path(config_path) {
+            Config { config }
+        } else {
+            Config {
+                config: default_config(),
+            }
+        }
     }
 
     pub fn variants(&self) -> &Vec<Variant> {
