@@ -17,11 +17,11 @@ fn main() -> Result<(), Error> {
         .unwrap();
 
     let message = prompt_user(&selected_variant.parts);
-    println!("{message}");
 
-    let confirmed = Confirm::new("Commit with with the following message?")
+    println!("\n{message}\n");
+
+    let confirmed = Confirm::new("Commit with the given message?")
         .with_default(true)
-        .with_help_message(&message)
         .prompt()
         .unwrap();
 
