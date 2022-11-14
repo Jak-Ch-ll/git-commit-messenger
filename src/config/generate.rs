@@ -18,7 +18,7 @@ pub fn default_config() -> ConfigOptions {
                     Part::ConventionalType,
                     Part::TextInput {
                         prompt: String::from("Scope"),
-                        pattern: Some(String::from(" ({0})")),
+                        pattern: Some(String::from("({0})")),
                     },
                     Part::Literal {
                         value: String::from(": "),
