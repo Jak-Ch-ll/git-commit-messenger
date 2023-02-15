@@ -1,10 +1,10 @@
-mod config;
-mod prompt;
-use config::{Config, Part};
+use gcm::{
+    config::{Config, Part},
+    error::Error,
+    git,
+    prompt::message_builder::MessageBuilder,
+};
 use inquire::{Confirm, Select};
-
-use crate::prompt::message_builder::MessageBuilder;
-use git_commit_messenger::utils::{error::Error, git};
 
 #[termination::display]
 fn main() -> Result<(), Error> {

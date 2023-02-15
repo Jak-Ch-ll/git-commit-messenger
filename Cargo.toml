@@ -3,7 +3,9 @@ name = "git-commit-messenger"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "gcm"
+path = "src/lib/lib.rs"
 
 [dependencies]
 duct = "0.13.5"
@@ -15,3 +17,4 @@ serde_yaml = "0.9.13"
 termination = "0.1.2"
 thiserror = "1.0.37"
 yaml-rust = "0.4.5"
+

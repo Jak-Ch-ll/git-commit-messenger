@@ -9,7 +9,7 @@ struct Gitmoji {
     description: String,
 }
 
-const GITMOJI_JSON: &str = include_str!("../data/gitmojis.json");
+const GITMOJI_JSON: &str = include_str!("../../data/gitmojis.json");
 
 impl Display for Gitmoji {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
