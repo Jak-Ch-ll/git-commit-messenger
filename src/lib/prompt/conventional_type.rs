@@ -2,7 +2,7 @@ use inquire::Select;
 
 use crate::config::SelectOption;
 
-const CONVENTIONAL_TYPE_JSON: &str = include_str!("../data/conventional_types.json");
+const CONVENTIONAL_TYPE_JSON: &str = include_str!("../../data/conventional_types.json");
 
 pub fn select_conventional_type() -> String {
     let conventional_types: Vec<SelectOption> =

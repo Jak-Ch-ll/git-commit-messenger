@@ -1,10 +1,10 @@
-mod config;
-mod prompt;
-use config::{Config, Part};
+use gcm::{
+    config::{Config, Part},
+    error::Error,
+    git,
+    prompt::message_builder::MessageBuilder,
+};
 use inquire::{Confirm, Select};
-
-use crate::prompt::message_builder::MessageBuilder;
-use git_commit_messenger::utils::{error::Error, git};
 
 #[termination::display]
 fn main() -> Result<(), Error> {
@@ -29,7 +29,7 @@ fn main() -> Result<(), Error> {
         git::commit(message);
     }
 
-    return Ok(());
+    Ok(())
 }
 
 fn prompt_user(parts: &[Part]) -> String {
@@ -41,11 +41,11 @@ fn prompt_user(parts: &[Part]) -> String {
                 prompt,
                 options,
                 pattern,
-            } => message_builder.select_prompt(&prompt, options, pattern),
+            } => message_builder.select_prompt(prompt, options, pattern),
             Part::Space => message_builder.add_literal(" "),
             Part::Gitmoji => message_builder.select_gitmoji(),
-            Part::Literal { value } => message_builder.add_literal(&value),
-            Part::TextInput { prompt, pattern } => message_builder.text_input(&prompt, &pattern),
+            Part::Literal { value } => message_builder.add_literal(value),
+            Part::TextInput { prompt, pattern } => message_builder.text_input(prompt, pattern),
             Part::ConventionalType => message_builder.select_conventional_type(),
         };
     }

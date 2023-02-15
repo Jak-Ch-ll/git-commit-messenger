@@ -19,11 +19,17 @@ pub struct MessageBuilder {
     message: String,
 }
 
-impl MessageBuilder {
-    pub fn new() -> Self {
+impl Default for MessageBuilder {
+    fn default() -> Self {
         MessageBuilder {
             message: String::from(""),
         }
+    }
+}
+
+impl MessageBuilder {
+    pub fn new() -> Self {
+        Default::default()
     }
 
     pub fn consume(self) -> String {
@@ -68,7 +74,7 @@ impl MessageBuilder {
     }
 
     pub fn add_literal(&mut self, literal: &str) -> &Self {
-        self.add_text(&literal)
+        self.add_text(literal)
     }
 
     pub fn select_conventional_type(&mut self) -> &Self {
@@ -78,7 +84,7 @@ impl MessageBuilder {
     }
 
     fn add_text(&mut self, text: &str) -> &Self {
-        self.message.push_str(&text);
+        self.message.push_str(text);
 
         self
     }
