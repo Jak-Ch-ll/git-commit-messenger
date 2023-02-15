@@ -29,7 +29,7 @@ fn main() -> Result<(), Error> {
         git::commit(message);
     }
 
-    return Ok(());
+    Ok(())
 }
 
 fn prompt_user(parts: &[Part]) -> String {
@@ -41,11 +41,11 @@ fn prompt_user(parts: &[Part]) -> String {
                 prompt,
                 options,
                 pattern,
-            } => message_builder.select_prompt(&prompt, options, pattern),
+            } => message_builder.select_prompt(prompt, options, pattern),
             Part::Space => message_builder.add_literal(" "),
             Part::Gitmoji => message_builder.select_gitmoji(),
-            Part::Literal { value } => message_builder.add_literal(&value),
-            Part::TextInput { prompt, pattern } => message_builder.text_input(&prompt, &pattern),
+            Part::Literal { value } => message_builder.add_literal(value),
+            Part::TextInput { prompt, pattern } => message_builder.text_input(prompt, pattern),
             Part::ConventionalType => message_builder.select_conventional_type(),
         };
     }

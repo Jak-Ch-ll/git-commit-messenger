@@ -1,6 +1,6 @@
 use home::home_dir;
 use serde::Deserialize;
-use std::{fmt::Display, path::PathBuf};
+use std::fmt::Display;
 
 use self::generate::{default_config, read_from_path};
 
@@ -55,19 +55,25 @@ pub struct Config {
 
 impl Config {
     pub fn new() -> Self {
-        let mut config_path = PathBuf::from(home_dir().unwrap());
+        let mut config_path = home_dir().unwrap();
         config_path.push(".config/gcm/config.yml");
 
         if let Some(config) = read_from_path(config_path) {
             Config { config }
         } else {
-            Config {
-                config: default_config(),
-            }
+            Default::default()
         }
     }
 
     pub fn variants(&self) -> &Vec<Variant> {
         &self.config.variants
+    }
+}
+
+impl Default for Config {
+    fn default() -> Self {
+        Config {
+            config: default_config(),
+        }
     }
 }

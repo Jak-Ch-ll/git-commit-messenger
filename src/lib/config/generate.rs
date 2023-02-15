@@ -4,9 +4,8 @@ use super::{ConfigOptions, Part, Variant};
 
 pub fn read_from_path(path: PathBuf) -> Option<ConfigOptions> {
     let config_yml = fs::read_to_string(path).ok()?;
-    let config = serde_yaml::from_str(&config_yml).ok()?;
 
-    config
+    serde_yaml::from_str(&config_yml).ok()?
 }
 
 pub fn default_config() -> ConfigOptions {
